@@ -5,8 +5,7 @@ const inputEl = document.getElementById('datetime-picker')
 const startBtnEl = document.querySelector('button[data-start]')
 console.log(inputEl)
 
-const day = Date.now()
-console.log(day)
+
 
 startBtnEl.disabled = 'true';
 
@@ -17,20 +16,31 @@ const options = {
     minuteIncrement: 1,
     onClose(selectedDates) {
       console.log(selectedDates[0]);
-     
+
+      const day = Date.now()
+      console.log(day)
+
       if (selectedDates[0]<day){
        window.alert("Please choose a date in the future")
       }
       else {
         startBtnEl.disabled = false;
       }
+      
+       intervalId = setInterval (() => {
+        const deltaTime = selectedDates[0].getTime() - day 
+       
+    const time = convertMs(deltaTime)}
+    , 1000)
+    console.log(time)
     },
-   
+  
   };
 
-flatpickr('#datetime-picker', options)
+const fp = flatpickr('#datetime-picker', options)
 
 // const fp = flatpickr("#datetime-picker", options); // flatpickr
+
 
 
 
