@@ -3,10 +3,15 @@ import "flatpickr/dist/flatpickr.min.css";
 
 const inputEl = document.getElementById('datetime-picker')
 const startBtnEl = document.querySelector('button[data-start]')
-console.log(inputEl)
+const daysOutputEl = document.querySelector('span[data-days]')
+const hoursOutputEl = document.querySelector('span[data-hours]')
+const minutesOutputEl = document.querySelector('span[data-minutes]')
+const secondsOutputEl = document.querySelector('span[data-seconds]')
+const timerEl = document.querySelector('.timer')
 
-const day = Date.now()
-console.log(day)
+
+
+
 let selectedDay = null
 
 startBtnEl.disabled = 'true';
@@ -27,17 +32,58 @@ const options = {
       else {
         startBtnEl.disabled = false;
       }
-    },
-    };
+    }   
+   };
 
 
-flatpickr('#datetime-picker', options)
+const fp = flatpickr('#datetime-picker', options)
 
-setInterval(()=> {
-   const deltaDay = selectedDay - day;
-   const time =  convertMs(deltaDay)
-})
+const timer = {
+  intervalId: null,
+  isActive: false,
 
+  start(){
+    if (this.isActive){
+      return
+    }
+    const day = Date.now()
+    console.log(day)
+    this.isActive = true
+startBtnEl.disabled = 'false'
+
+  this.intervalId = setInterval(()=> {
+    const currentTime = Date.now()
+     const deltaDay = selectedDay - currentTime;
+     console.log(deltaDay)
+
+     if ( deltaDay < 0 )
+     {clearInterval(this.intervalId);
+     this.isActive = false;
+   startBtnEl.disabled = true;
+  inputEl.disabled = false;
+  window.alert('Time is over!')
+return}
+
+     const timeComponents = convertMs(deltaDay);
+  updateFace(timeComponents);
+  }, 1000)
+
+}  
+}
+
+
+startBtnEl.addEventListener('click', timer.start)
+
+function addLeadingZero(value){
+  return String(value).padStart(2, '0')
+}
+
+function updateFace({ days, hours, minutes, seconds }){
+  daysOutputEl.textContent = addLeadingZero(`${days}`);
+  hoursOutputEl.textContent = addLeadingZero(`${hours}`);
+  minutesOutputEl.textContent = addLeadingZero(`${minutes}`);
+ secondsOutputEl.textContent = addLeadingZero(`${seconds}`);
+}
 
 function convertMs(ms) {
     // Number of milliseconds per unit of time

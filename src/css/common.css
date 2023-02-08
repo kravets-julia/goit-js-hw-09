@@ -25,5 +25,19 @@ img {
   color: limegreen;
   border: 2px solid limegreen;
   border-radius: 10px;
-  
-}
+  }
+
+  .timer{
+    display: flex;
+    gap: 50px;
+   align-items: center;
+  }
+
+  .value{
+    font-size: 24px;
+  }
+  .field{
+    width: 20px;
+   flex-wrap: wrap;
+
+  }
