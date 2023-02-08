@@ -5,7 +5,9 @@ const inputEl = document.getElementById('datetime-picker')
 const startBtnEl = document.querySelector('button[data-start]')
 console.log(inputEl)
 
-
+const day = Date.now()
+console.log(day)
+let selectedDay = null
 
 startBtnEl.disabled = 'true';
 
@@ -14,34 +16,27 @@ const options = {
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
+
     onClose(selectedDates) {
       console.log(selectedDates[0]);
-
-      const day = Date.now()
-      console.log(day)
-
-      if (selectedDates[0]<day){
-       window.alert("Please choose a date in the future")
+ selectedDay = selectedDates[0]
+    if (selectedDates[0]<options.defaultDate){
+       window.alert("Please choose a date in the future");
+       return
       }
       else {
         startBtnEl.disabled = false;
       }
-      
-       intervalId = setInterval (() => {
-        const deltaTime = selectedDates[0].getTime() - day 
-       
-    const time = convertMs(deltaTime)}
-    , 1000)
-    console.log(time)
     },
-  
-  };
-
-const fp = flatpickr('#datetime-picker', options)
-
-// const fp = flatpickr("#datetime-picker", options); // flatpickr
+    };
 
 
+flatpickr('#datetime-picker', options)
+
+setInterval(()=> {
+   const deltaDay = selectedDay - day;
+   const time =  convertMs(deltaDay)
+})
 
 
 function convertMs(ms) {
@@ -62,10 +57,3 @@ function convertMs(ms) {
   
     return { days, hours, minutes, seconds };
   }
-  
-  console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-  console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-  console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
-
-
- 
