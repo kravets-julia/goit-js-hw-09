@@ -7,12 +7,12 @@ const daysOutputEl = document.querySelector('span[data-days]')
 const hoursOutputEl = document.querySelector('span[data-hours]')
 const minutesOutputEl = document.querySelector('span[data-minutes]')
 const secondsOutputEl = document.querySelector('span[data-seconds]')
+console.log(minutesOutputEl)
 const timerEl = document.querySelector('.timer')
 
 
-
-
 let selectedDay = null
+
 
 startBtnEl.disabled = 'true';
 
@@ -24,7 +24,7 @@ const options = {
 
     onClose(selectedDates) {
       console.log(selectedDates[0]);
- selectedDay = selectedDates[0]
+ selectedDay = selectedDates[0];
     if (selectedDates[0]<options.defaultDate){
        window.alert("Please choose a date in the future");
        return
@@ -36,7 +36,7 @@ const options = {
    };
 
 
-const fp = flatpickr('#datetime-picker', options)
+   flatpickr('#datetime-picker', options)
 
 const timer = {
   intervalId: null,

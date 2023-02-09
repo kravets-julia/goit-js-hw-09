@@ -13,6 +13,8 @@ console.log(inputDelayEl)
 console.log(inputAmounEl)
 console.log(inputStepEl)
 
+let MAIN_DELAY = null
+console.log(MAIN_DELAY)
  
 function onSubmit (e) {
   e.preventDefault();
@@ -23,6 +25,8 @@ function onSubmit (e) {
 // let delay = 0;
 for (let position = 1; position <= MAX_AMOUNT; position+=1) {
  let delay = FIRST_DELAY + STEP_DELAY*(position-1);
+ console.log(delay)
+ MAIN_DELAY = delay
   
   createPromise(position, delay).then(({position, delay}) => {
    Notify.success
@@ -38,13 +42,7 @@ for (let position = 1; position <= MAX_AMOUNT; position+=1) {
   function createPromise (position, delay) {
      const shouldResolve = Math.random() > 0.3;
   return new Promise (( resolve, reject) => {
-  //   if(amount === MAX_AMOUNT) {
-  //     return
-  //   }
-  //  let amount = 0
-
  
-  
   setTimeout(() => {
   if (shouldResolve) {
     resolve ({position, delay})
@@ -53,10 +51,11 @@ for (let position = 1; position <= MAX_AMOUNT; position+=1) {
     reject ({position, delay})
     // Reject
   }
-  // amount += 1; 
-}, delay);
+
+}, MAIN_DELAY);
 }
 )}
+
 
 // createPromise(position, delay)
 
