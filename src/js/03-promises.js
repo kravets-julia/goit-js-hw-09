@@ -15,6 +15,10 @@ function onSubmit(e) {
     const firstDelay = Number(inputDelayEl.value)
     const stepDelay = Number(inputStepEl.value)
     const amount = Number(inputAmounEl.value)
+
+    if(firstDelay < 0 || stepDelay < 0 || amount <= 0) {
+      return window.alert('Please enter a value greater than 0')
+     }
    
     for (let position = 1; position <= amount; position+=1) {
          delay = firstDelay + stepDelay*(position-1)
